@@ -1,0 +1,21 @@
+{
+  "name": "wemogen",
+  "version": "1.0.0",
+  "description": "Discovers & binds WeMo Switches, serves WeMogen web app, & advertises over mDNS",
+  "main": "serve.js",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mdns": "^2.3.1",
+    "wemo-client": "^0.6.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": " "
+  },
+  "author": "Thomas Zachariah",
+  "license": " "
+}
