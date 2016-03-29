@@ -3,10 +3,12 @@ var mdns    = require('mdns');
 var wemo    = require('wemo-client');
 var app     = express();
 
-var delay   = 5*60*1000; // Delay for automatic shutoff (5 mins)
+var delay   = 6*60*1000; // Delay for automatic shutoff (6 mins)
+var timeout = null;
+
 
 // Serve www/
-app.use(express.static(__dirname+'/www'));
+app.use(express.static(__dirname + '/www'));
 app.listen(0,function(){
   console.log(new Date(),'Serving http://localhost:' + this.address().port);
 
@@ -24,7 +26,6 @@ app.listen(0,function(){
 
       var state   = false;
       var present = false;
-      var timeout = null;
       var client  = this.client(device);
 
       var toggle  = function(req, res) {
@@ -38,7 +39,7 @@ app.listen(0,function(){
         if (state & !present) timeout = setTimeout(toggle, delay);
       });
 
-        // Detect phone presence over mDNS
+      // Detect phone presence over mDNS
       mdns.createBrowser(mdns.tcp('apple-mobdev2')).on('serviceUp', function(){
         console.log(new Date(),'Present');
         present = true;
