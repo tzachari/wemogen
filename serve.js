@@ -45,10 +45,15 @@ app.listen(0, function() {
       // The switch changed its state
       client.on('binaryState', function(value) {
         state = (value == '1');
-        if (state & !present) timer();
+        if (state & !present) timer(); // Timer -- Comment out if undesired
       });
 
-      // Detect phone presence over mDNS
+      client.soapAction('urn:Belkin:service:basicevent:1', 'GetSimulatedRuleData', null, function(err, data) {
+        if (err) console.log(err);
+        console.log(JSON.stringify(data,null,4));
+      });
+
+      // Detect iPhone presence over mDNS --  Comment out if undesired
       mdns.createBrowser(mdns.tcp('apple-mobdev2'), {resolverSequence:seq})
         .on('serviceUp', function() {
           console.log(new Date(), 'Present');
